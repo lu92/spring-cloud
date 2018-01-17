@@ -1,0 +1,6 @@
+version: '3'
+services:
+  quote-service-1:
+    image: quote-service
+    ports:
+     - "7000:8080"
