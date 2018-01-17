@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SpringBootApplication
+@EnableEurekaClient
 public class QuoteServicedemoApplication {
 
     public static void main(String[] args) {
@@ -21,10 +23,8 @@ public class QuoteServicedemoApplication {
     }
 }
 
-
 @RestController
 class QuoteController {
-
     private Map<Integer, Quote> quoteMap;
 
     public QuoteController() {
@@ -44,7 +44,6 @@ class QuoteController {
         return quoteMap.get(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
     }
 }
-
 
 @Data
 @NoArgsConstructor
