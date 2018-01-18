@@ -1,6 +1,13 @@
 version: '3'
 services:
+  eureka-service:
+    image: eureka-discovery-service
+    ports:
+     - "8761:8761"
+
   quote-service-1:
     image: quote-service
     ports:
      - "7000:8080"
+    links:
+     - eureka-service

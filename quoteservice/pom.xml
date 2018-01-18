@@ -57,7 +57,7 @@
 				<configuration>
 					<imageName>${project.artifactId}</imageName>
 					<baseImage>java:8</baseImage>
-					<entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+					<entryPoint>["java", "-jar", "/${project.build.finalName}.jar", "--debug"]</entryPoint>
 					<resources>
 						<resource>
 							<targetPath>/</targetPath>
