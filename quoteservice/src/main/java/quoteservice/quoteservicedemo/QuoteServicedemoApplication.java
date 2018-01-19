@@ -3,6 +3,8 @@ package quoteservice.quoteservicedemo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -27,6 +29,9 @@ public class QuoteServicedemoApplication {
 class QuoteController {
     private Map<Integer, Quote> quoteMap;
 
+    private final Logger LOGGER = LoggerFactory.getLogger(QuoteController.class);
+
+
     public QuoteController() {
         quoteMap = new HashMap<>();
         quoteMap.put(1, new Quote("one"));
@@ -38,9 +43,10 @@ class QuoteController {
         quoteMap.put(7, new Quote("seven"));
     }
 
-    @GetMapping(value = "/quote")
+    @GetMapping()
     @ResponseBody
     Quote getQuote() {
+        LOGGER.info("Retrieved quoted");
         return quoteMap.get(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
     }
 }
