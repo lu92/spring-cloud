@@ -13,6 +13,7 @@
         <module>eurekadiscoveryservice</module>
         <module>monitoringservice</module>
         <module>api-gateway-service</module>
+        <module>docker-elk</module>
     </modules>
 
     <parent>

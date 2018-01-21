@@ -11,6 +11,7 @@ services:
      - "7000:8080"
     links:
      - eureka-service
+     - logstash
 
   quote-service-2:
     image: quote-service
@@ -18,6 +19,7 @@ services:
      - "7001:8080"
     links:
      - eureka-service
+     - logstash
 
   monitoring-service:
     image: monitoring-service
@@ -32,3 +34,33 @@ services:
      - "9000:9000"
     links:
      - eureka-service
+
+  elasticsearch:
+    build: elk/elasticsearch/
+    container_name: elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xms1g -Xmx1g"
+
+  logstash:
+    build: elk/logstash/
+    container_name: logstash
+    command: -f /etc/logstash/conf.d/
+    volumes:
+      - ./docker-elk/elk/logstash/config:/etc/logstash/conf.d
+    ports:
+      - "9999:9999"
+    links:
+      - elasticsearch
+
+  kibana:
+    build: elk/kibana/
+    container_name: kibana
+    volumes:
+      - ./docker-elk/elk/kibana/config/:/opt/kibana/config/
+    ports:
+      - "5601:5601"
+    links:
+      - elasticsearch
